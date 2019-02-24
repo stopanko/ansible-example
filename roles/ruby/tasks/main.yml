@@ -1,0 +1,12 @@
+# This play use github ruby role mentioned in requirements to install ruby.
+# Version and source url can be changed in the vars settings for this role
+- name: Install ruby
+  become_user: stepan
+  become: true
+
+  shell: ruby --version
+  register: ruby_present
+  failed_when: "'{{ version }}' not in ruby_present.stdout"
+
+- debug:
+    msg: "Ruby Present {{ ruby_present.stdout }} | Expected Ruby version {{version}}"

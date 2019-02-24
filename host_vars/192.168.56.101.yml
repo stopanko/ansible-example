@@ -1,0 +1,3 @@
+# This variable will override the value for ansible_user variable from group_vars
+# Also this variable will override local ansible_user variable mentioned in the inventory file
+ansible_user: "{{ ssh_connect_user }}"

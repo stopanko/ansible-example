@@ -1,0 +1,9 @@
+# just example how to setup global variable
+
+ssh_connect_user: user_from_global_group_vars
+
+stepan_server_port: 5678
+stepan_server_host: localhost
+stepan_server_url: "{{stepan_server_host}}:{{stepan_server_port}}"
+web_server_host: hello.com
+web_server_url: "{{web_server_host}}:{{stepan_server_port}}"

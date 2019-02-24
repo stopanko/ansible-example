@@ -1,0 +1,8 @@
+# Using import instead include due tu
+# All import* statements are pre-processed at the time playbooks are parsed.
+# All include* statements are processed as they encountered during the execution of the playbook.
+# As we want this handlers exist before the file will be read we need use import, that will be handled earlier.
+
+- import_tasks: "{{playbook_dir}}/handlers/main.yml"
+  vars:
+    server_url: "{{web_server_url}}"

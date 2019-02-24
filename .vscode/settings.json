@@ -1,0 +1,8 @@
+{
+  "files.associations": {
+    "**/group_vars/**/*": "yaml",
+    "**/host_vars/**/*": "yaml",
+    "**/inventories/**/*": "ansible",
+    "**/inventories/**/*.yml": "yaml",
+  }
+}

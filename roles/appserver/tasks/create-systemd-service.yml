@@ -1,0 +1,27 @@
+- name: Getting ruby path
+  command: which ruby
+  register: ruby_path_register
+
+- debug:
+    msg: "{{ruby_path_register}} ->>> {{ruby_path_register.stdout}}"
+
+- name: Create systemd service to run application
+  template:
+    src: stepan-server.service
+    dest: /etc/systemd/system
+  vars:
+    # variable for template
+    ruby_path: "{{ruby_path_register.stdout}}"
+  notify: "restart web services"
+
+- name: reload stepan-server
+  systemd:
+    name: stepan-server
+    state: restarted
+    enabled: yes
+  notify: "stepan-server healthcheck"
+  # enabled create symlink in the appropriate target folder for your service.(system/multi-user.target.wants)
+  # Target folder can be set up in the service file
+# [Install]
+# WantedBy=multi-user.target
+  # # \Created symlink /etc/systemd/system/multi-user.target.wants/stepan.service → /etc/systemd/system/stepan.service.

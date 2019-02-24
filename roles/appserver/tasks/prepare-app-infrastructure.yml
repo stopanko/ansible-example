@@ -1,0 +1,16 @@
+
+- name: create app folder
+  become_user: root
+  become: true
+
+  file:
+    path: "{{source_location}}"
+    state: directory
+
+- name: copy app source to the location
+  copy:
+   src: stepan_server.rb
+   dest: "{{source_location}}"
+
+- debug:
+    msg: "Debug paths {{playbook_dir}} | {{inventory_dir}} | {{playbook_dir}}/handlers/main.yml"

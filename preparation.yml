@@ -1,0 +1,52 @@
+# Master playbook
+
+- name: create needed roles
+  hosts: all
+
+  tasks:
+  - name: create stepan user
+    become: yes
+    user:
+      name: stepan
+      # 12345678
+      password: "!vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          33323030306264613131353434653832633861346466353264396338633436323663316531643333
+          3339326666376138643631373530333832666631643265320a623263653131343337616438343164
+          32333264613433613632313862373362653131663263316466303038353833356137393665323961
+          3966343765303537360a326666393666303039363264373834356561333439383837393866653566
+          3964"
+      state: present
+      groups: [root]
+      append: yes
+      createhome: yes
+      home: /home/stepan
+
+- name: Install required software
+  hosts: all
+  become_user: stepan
+  become: yes
+  roles: [nginx]
+
+  tasks:
+  - name: Install curl
+    yum:
+      name: curl
+      state: present
+
+- name: Prepare ruby environment
+  hosts: all
+  roles: [ruby]
+
+- name: Set up Application Server
+  # Append this user for all nested tasks
+  become_user: stepan
+  become: true
+  hosts: webservers
+  roles: [appserver]
+
+- name: Set up Web Server
+  become: yes
+  hosts: webservers
+  roles: [webserver]
+  

@@ -1,0 +1,2 @@
+# ansible_user variable from host_vars will override this value
+ansible_user: stepan

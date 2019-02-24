@@ -1,0 +1,9 @@
+## Vault
+- password for stepan encrypted string 123456
+
+## Run
+### For installing requirenments
+- ansible-galaxy install -r requirements.yml
+
+### For set up your local host machine
+- ansible-playbook preparation.yml -i inventories/local/hosts --vault-id=dev@vault-pass

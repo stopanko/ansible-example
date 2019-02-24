@@ -1,0 +1,23 @@
+# Handler global
+- name: restart nginx
+  systemd:
+    name: nginx
+    state: restarted
+    daemon_reload: yes
+  become: true
+  become_user: root
+  listen: "restart web services"
+
+- debug:
+    msg: "Debug paths handlers {{playbook_dir}} | {{inventory_dir}} | {{playbook_dir}}/handlers/main.yml"
+
+- debug:
+    msg: "STEPAN SERVER URL {{stepan_server_url}}"
+
+- name: check stepan-server is running ok
+  become: true
+  become_user: root
+  shell: "curl {{server_url}}"
+  register: stepan_server_healthcheck
+  failed_when: "'StepanServer' not in stepan_server_healthcheck.stdout"
+  listen: "stepan-server healthcheck"

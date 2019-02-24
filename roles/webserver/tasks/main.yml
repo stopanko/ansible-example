@@ -1,0 +1,23 @@
+- name: Add web server host to the host list
+  lineinfile:
+    dest: "/etc/hosts"
+    line: "127.0.0.1 {{web_server_host}}"
+    state: present
+  notify: "stepan-server healthcheck"
+
+- name: Add web server nginx config
+  become: true
+  template:
+    src: stepan-server.conf
+    dest: /etc/nginx/conf.d
+  notify: "restart web services"
+
+- name: disable firewalld
+  service: name=firewalld enabled=no state=stopped
+  ignore_errors: True
+  become: true
+
+- name: Copy 404 file to the source location
+  copy:
+   src: 404.html
+   dest: "{{source_location}}"

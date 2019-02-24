@@ -1,0 +1,9 @@
+[Service]
+ExecStart={{ruby_path}} {{source_location}}/stepan_server.rb
+WorkingDirectory={{source_location}}
+Restart=always
+StandardOutput=syslog
+SyslogIdentifier=stepan-server
+
+[Install]
+WantedBy=multi-user.target
