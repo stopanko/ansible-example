@@ -55,4 +55,5 @@
 # sudo setenforce 0
 - name: Disable setenforce
   become: true
-  command: "setenforce 0"
+  selinux:
+    state: disabled

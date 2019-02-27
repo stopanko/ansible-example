@@ -7,3 +7,9 @@
   yum:
     name: nginx
     state: present
+
+- name: reload and enable nginx
+  systemd:
+    name: nginx
+    state: restarted
+    enabled: yes
