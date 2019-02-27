@@ -1,7 +1,9 @@
 dependencies:
   - role: geerlingguy.ruby
+    become: true
     vars:
       ruby_version: "{{version}}"
       ruby_install_from_source: true
       ruby_download_url: "{{download_url}}"
       ruby_install_bundler: true
+      ruby_install_gems: [rack]

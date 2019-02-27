@@ -24,8 +24,7 @@
 
 - name: Install required software
   hosts: all
-  become_user: stepan
-  become: yes
+  become: true
   roles: [nginx]
 
   tasks:
@@ -40,7 +39,6 @@
 
 - name: Set up Application Server
   # Append this user for all nested tasks
-  become_user: stepan
   become: true
   hosts: webservers
   roles: [appserver]
@@ -49,4 +47,3 @@
   become: yes
   hosts: webservers
   roles: [webserver]
-  

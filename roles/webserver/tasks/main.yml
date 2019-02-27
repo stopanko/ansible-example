@@ -5,6 +5,26 @@
     state: present
   notify: "stepan-server healthcheck"
 
+- name: Check nginx.conf backup presence
+  shell: "ls /etc/nginx | grep nginx.conf.backup"
+  register: nginx_conf_backup
+  ignore_errors: true
+
+- debug:
+    msg: "nginx.conf.backup Present?  {{ nginx_conf_backup.stdout }}"
+
+- name: Backup default nginx config
+  shell: "cp /etc/nginx/nginx.conf /etc/nginx/nginx.conf.backup"
+  when: "'nginx.conf.backup' not in nginx_conf_backup.stdout"
+
+- name: Replace default nginx config
+  become: true
+  template:
+    src: nginx.conf
+    dest: /etc/nginx/
+    backup: true
+  notify: "restart web services"
+
 - name: Add web server nginx config
   become: true
   template:
@@ -17,7 +37,22 @@
   ignore_errors: True
   become: true
 
+- name: Copy 404-default file to the /usr/share/nginx/html(Customize default 404 page for all requests)
+  copy:
+   src: 404-default.html
+   dest: /usr/share/nginx/html
+
+- name: Copy test.html file to the source location
+  copy:
+   src: test.html
+   dest: "{{source_location}}"
+
 - name: Copy 404 file to the source location
   copy:
    src: 404.html
    dest: "{{source_location}}"
+
+# sudo setenforce 0
+- name: Disable setenforce
+  become: true
+  command: "setenforce 0"

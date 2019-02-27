@@ -6,4 +6,5 @@
 - ansible-galaxy install -r requirements.yml
 
 ### For set up your local host machine
-- ansible-playbook preparation.yml -i inventories/local/hosts --vault-id=dev@vault-pass
+- ansible-playbook preparation.yml -i inventories/local/hosts --vault-id=dev@vault-pass --extra-vars "ansible_user=centos web_server_host=stepan.locodevs.io"
+Omitting web_server_host variable configure your nginx with hello.com by default

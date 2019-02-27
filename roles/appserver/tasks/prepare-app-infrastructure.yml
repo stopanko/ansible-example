@@ -8,7 +8,7 @@
     state: directory
 
 - name: copy app source to the location
-  copy:
+  template:
    src: stepan_server.rb
    dest: "{{source_location}}"
 
