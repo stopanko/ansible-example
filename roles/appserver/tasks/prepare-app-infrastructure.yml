@@ -7,10 +7,15 @@
     path: "{{source_location}}"
     state: directory
 
+# - name: copy command.rb source to the location
+#   file:
+#    src: command.rb
+#    dest: "{{source_location}}"
+
 - name: copy app source to the location
   template:
-   src: stepan_server.rb
-   dest: "{{source_location}}"
+    src: stepan_server.rb
+    dest: "{{source_location}}"
 
 - debug:
     msg: "Debug paths {{playbook_dir}} | {{inventory_dir}} | {{playbook_dir}}/handlers/main.yml"
