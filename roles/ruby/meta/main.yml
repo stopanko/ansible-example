@@ -2,6 +2,7 @@ dependencies:
   - role: geerlingguy.ruby
     become: true
     vars:
+      ruby_install_gems_user: root
       ruby_version: "{{version}}"
       ruby_install_from_source: true
       ruby_download_url: "{{download_url}}"

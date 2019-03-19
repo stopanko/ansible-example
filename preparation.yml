@@ -5,7 +5,7 @@
 
   tasks:
   - name: create stepan user
-    become: yes
+    become: true
     user:
       name: stepan
       # 12345678
@@ -44,6 +44,6 @@
   roles: [appserver]
 
 - name: Set up Web Server
-  become: yes
+  become: true
   hosts: webservers
   roles: [webserver]

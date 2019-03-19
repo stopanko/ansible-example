@@ -1,6 +1,6 @@
 [rubyapp]
 # ansible_user variable will be ovveriden wit the value in the host_vars
-34.245.220.41 hostname=hello.com htt_port=80 ansible_user=stepan_local
+52.209.36.54 hostname=hello.com htt_port=80 ansible_user=stepan_local
 
 [webservers:children]
 rubyapp

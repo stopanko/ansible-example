@@ -12,6 +12,10 @@
   vars:
     # variable for template
     ruby_path: "{{ruby_path_register.stdout}}"
+
+# Restart the systemd daemon all the time
+- name: systemctl daemon-reload
+  command: /bin/true
   notify: "restart web services"
 
 - name: reload stepan-server

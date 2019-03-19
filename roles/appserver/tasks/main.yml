@@ -1,7 +1,7 @@
 - include: prepare-app-infrastructure.yml
   # Append this user to all nested tasks
   become_user: root
-  become: yes
+  become: true
 
 - include: create-systemd-service.yml
   become_user: root
